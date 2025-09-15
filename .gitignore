@@ -1,0 +1,24 @@
+# Environment variables
+.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+venv/
+env/
+
+# Data folders
+universal_raw_data/
+text/
+chunks/
+embeddings/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store

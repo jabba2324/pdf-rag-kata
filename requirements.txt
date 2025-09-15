@@ -1,0 +1,9 @@
+PyMuPDF
+tiktoken
+numpy
+openai
+pinecone
+sentence-transformers
+gradio
+torch
+python-dotenv
