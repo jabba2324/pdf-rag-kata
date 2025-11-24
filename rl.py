@@ -165,7 +165,7 @@ def track_progress(
 def policy_network(
     state: dict, 
     action_space: List[str], 
-    epsilon: float = 0.2
+    epsilon: float = 0.5
 ) -> str:
     """
     Define a policy network to select an action based on the current state using an epsilon-greedy strategy.

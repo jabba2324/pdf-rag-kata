@@ -8,8 +8,8 @@ from rl_step import rl_step
 def training_loop(
     query_text: str, 
     ground_truth: str, 
-    params: Optional[Dict[str, Union[float, int]]] = None
-) -> Tuple[Dict[str, Dict[str, Union[float, str]]], List[float], List[List[str]], Optional[str]]:
+    params: Optional[Dict[str, Union[float, int]]]
+) -> Tuple[Dict[str, Dict[str, Union[float, str]]], str, float, List[float], List[List[str]], Optional[str], float, float]:
     """
     Implement the training loop for RL-enhanced RAG.
 
@@ -26,10 +26,7 @@ def training_loop(
             - actions_history (List[List[str]]): A list of actions taken in each episode.
             - best_response (Optional[str]): The best response generated during training.
     """
-    # Initialize training parameters if not provided
-    if params is None:
-        params = initialize_training_params()
-    
+
     # Initialize variables to track progress
     rewards_history: List[float] = []  # List to store rewards for each episode
     actions_history: List[List[str]] = []  # List to store actions taken in each episode
@@ -74,13 +71,12 @@ def training_loop(
         actions_history.append(episode_actions)
         
         # Print progress every 5 episodes
-        if episode % 5 == 0:
-            print(f"Episode {episode}: Reward = {episode_reward:.4f}, Actions = {episode_actions}")
-  # Compare the best RL-enhanced RAG reward with the simple RAG reward
+        print(f"Episode {episode}: Reward = {episode_reward:.4f}, Actions = {episode_actions}")
+    # Compare the best RL-enhanced RAG reward with the simple RAG reward
     improvement: float = best_reward - simple_reward
     print(f"\nTraining completed:")
     print(f"Simple RAG reward: {simple_reward:.4f}")
     print(f"Best RL-enhanced RAG reward: {best_reward:.4f}")
     print(f"Improvement: {improvement:.4f} ({improvement * 100:.2f}%)")
 
-    return policy, rewards_history, actions_history, best_response
+    return policy, simple_response, simple_reward, rewards_history, actions_history, best_response, best_reward, improvement
