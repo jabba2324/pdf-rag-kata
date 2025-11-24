@@ -34,12 +34,12 @@ def training_loop(
     action_space: List[str] = define_action_space()  # Define the action space
     best_response: Optional[str] = None  # Variable to store the best response
     best_reward: float = -1  # Initialize the best reward to a very low value
-    
+    q_table = {}
+
        # Get initial performance from the simple RAG pipeline for comparison
     simple_response: str = basic_rag_pipeline(query_text)
     simple_reward: float = calculate_reward(simple_response, ground_truth)
     print(f"Simple RAG reward: {simple_reward:.4f}")
-
     # Start the training loop
     for episode in range(params["num_episodes"]):
         # Reset the environment with the same query
@@ -52,7 +52,7 @@ def training_loop(
         # Maximum number of steps per episode to prevent infinite loops
         for step in range(10):
             # Perform a single RL step
-            state, action, reward, response = rl_step(state, action_space, ground_truth)
+            state, action, reward, response = rl_step(state, action_space, ground_truth, q_table)
             episode_actions.append(action)  # Record the action taken
             
             # If a response is generated, end the episode
@@ -71,7 +71,7 @@ def training_loop(
         actions_history.append(episode_actions)
         
         # Print progress every 5 episodes
-        print(f"Episode {episode}: Reward = {episode_reward:.4f}, Actions = {episode_actions}")
+        print(f"Episode {episode+1}: Reward = {episode_reward:.4f}, Actions = {episode_actions}")
     # Compare the best RL-enhanced RAG reward with the simple RAG reward
     improvement: float = best_reward - simple_reward
     print(f"\nTraining completed:")
