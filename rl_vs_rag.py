@@ -2,8 +2,6 @@ from typing import Dict, List, Tuple
 import json
 import gradio as gr
 
-from rag import basic_rag_pipeline, construct_prompt, generate_response, retrieve_relevant_chunks
-from rl import calculate_reward, initialize_training_params
 from rl_loop import training_loop
 
 # Function to compare Simple RAG vs RL-Enhanced RAG
@@ -29,9 +27,11 @@ def compare_rag_approaches(query_text = "When does the park open?", ground_truth
     # Step 2: Train the RL-enhanced RAG model
     print("\nTraining RL-enhanced RAG model...")
     # Initialize training parameters (e.g., learning rate, number of episodes, discount factor).
-    params: Dict[str, float | int] = initialize_training_params()
-    # Set the number of episodes to a smaller value for demonstration purposes.
-    params["num_episodes"] = 10
+    params = {
+        "learning_rate": 0.01,  # Learning rate for policy updates
+        "num_episodes": 10,   # Total number of training episodes
+        "discount_factor": 0.99  # Discount factor for future rewards
+    }    # Set the number of episodes to a smaller value for demonstration purposes.
     
         # Run the training loop for the RL-enhanced RAG model.
     # This loop trains the model to optimize its responses using reinforcement learning.

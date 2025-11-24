@@ -2,7 +2,7 @@
 from typing import Dict, List, Optional, Tuple, Union
 
 from rag import basic_rag_pipeline, retrieve_relevant_chunks
-from rl import calculate_reward, define_action_space, define_state, initialize_training_params
+from rl import calculate_reward, define_action_space, define_state
 from rl_step import rl_step
 
 def training_loop(

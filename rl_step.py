@@ -2,7 +2,7 @@
 from typing import List
 from q import encode_state, q_learning_policy, update_q_table
 from rag import construct_prompt, generate_response, retrieve_relevant_chunks
-from rl import calculate_reward, policy_network
+from rl import calculate_reward
 from rl_actions import expand_context, filter_context, rewrite_query
 
 
@@ -11,7 +11,9 @@ def rl_step(
     action_space: List[str], 
     ground_truth: str,
     q_table,
-    epsilon: float = 0.5
+    epsilon: float = 0.5,
+    learning_rate: float = 0.1,
+    discount: float = 0.9
 ) -> tuple[dict, str, float, str]:
     """
     Perform a single RL step: select an action, execute it, and calculate the reward.
@@ -66,5 +68,5 @@ def rl_step(
 
     # Return the updated state, selected action, reward, and response
     next_state_key = encode_state(state)  # After action execution
-    update_q_table(q_table, current_state_key, action, reward, next_state_key, action_space)
+    update_q_table(q_table, current_state_key, action, reward, next_state_key, action_space,learning_rate,discount)
     return state, action, reward, response
