@@ -7,3 +7,4 @@ sentence-transformers
 gradio
 torch
 python-dotenv
+matplotlib

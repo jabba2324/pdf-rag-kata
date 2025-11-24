@@ -83,13 +83,25 @@ python embeddings_to_pinecone.py
 
 ### 5. Chat with Documents (RAG)
 ```bash
-python chat.py
+python start_rag.py
 ```
 - **Purpose**: Provides a web interface to chat with your PDF documents using RAG
 - **Input**: User questions via web interface
 - **Output**: AI-generated answers based on document content
 - **Features**: Retrieves relevant chunks from Pinecone and generates contextual answers with GPT
 - **Access**: Opens web interface at `http://localhost:7860`
+- **Example question**: "When is the park opening?"
+
+### 6. Compare RAG vs RL-Enhanced RAG
+```bash
+python start_rl.py
+```
+- **Purpose**: Compares simple RAG with reinforcement learning enhanced RAG
+- **Input**: Query and ground truth via web interface
+- **Output**: JSON comparison of both approaches with similarity scores
+- **Features**: Trains an RL agent to optimize RAG responses and compares performance
+- **Access**: Opens web interface at `http://localhost:7860`
+- **Example**: Query: "When is the park opening?" | Ground truth: "2031"
 
 ## Folder Structure
 
@@ -103,8 +115,15 @@ pdf-to-vector/
 ├── text_to_chunks.py      # Step 2: Text → Chunks
 ├── chunks_to_embeddings.py # Step 3: Chunks → Embeddings
 ├── embeddings_to_pinecone.py # Step 4: Embeddings → Pinecone
-├── chat.py                # Step 5: RAG Chat Interface
-├── .env.example           # API keys template
+├── start_rag.py          # Step 5: RAG Chat Interface
+├── start_rl.py           # Step 6: RAG vs RL-Enhanced RAG Comparison
+├── rag.py                # RAG core functions
+├── rl_vs_rag.py          # RL vs RAG comparison logic
+├── rl.py                 # RL core functions
+├── rl_actions.py         # RL action implementations
+├── rl_loop.py            # RL training loop
+├── rl_step.py            # RL step execution
+├── .env.example          # API keys template
 └── requirements.txt
 ```
 
